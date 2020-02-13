@@ -77,7 +77,20 @@ def reaction_filter(reactions, reactants_left=None, percent_biggest_edges_to_lef
     return reactions
 
 
-def create_graph(reactions, reactants=None, height="100%", width="100%", bgcolor="#222222", font_color="white"):
+def create_graph(reactions, reactants=None, height="100%", width="100%", bgcolor="#222222", font_color="white",
+                 node_distance=140, spring_strength=0.001):
+    """
+
+    :param reactions:
+    :param reactants:
+    :param height:
+    :param width:
+    :param bgcolor:
+    :param font_color:
+    :param node_distance:
+    :param spring_strength:
+    :return:
+    """
     g = Network(height=height, width=width, bgcolor=bgcolor, font_color=font_color, directed=True)
 
     nodes = []
@@ -114,5 +127,8 @@ def create_graph(reactions, reactants=None, height="100%", width="100%", bgcolor
 
                 g.add_edge(r, k, color=edge_color, value=edge_thick, title=value)
                 g.add_edge(k, p, color=edge_color, value=edge_thick, title=value)
+
+    g.show_buttons(filter_=['physics'])
+    g.hrepulsion(node_distance=node_distance, spring_strength=spring_strength)
 
     return g

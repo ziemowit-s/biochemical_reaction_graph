@@ -32,7 +32,7 @@ if __name__ == '__main__':
     ap.add_argument("--node_distance", help="Distance between nodes on the graph, default: 140.", default=140)
 
     ap.add_argument("--reactants", nargs='+',
-                    help="Reduce graph particles only to those denifed here, default: None, "
+                    help="Reduce graph particles only to those defined here, default: None, "
                          "meaning - left edges of all nodes selected.",
                     default=None)
 
@@ -41,10 +41,7 @@ if __name__ == '__main__':
     species_kdiff, reactions = neurord_parse_reaction_file(filename=args.reaction_file)
 
     reactions = reaction_filter(reactions, reactants_left=args.reactants, percent_biggest_edges_to_left=args.left_edges)
-    graph = create_graph(reactions=reactions, reactants=args.reactants)
-
-    graph.show_buttons(filter_=['physics'])
-    graph.hrepulsion(node_distance=args.node_distance, spring_strength=0.001)
+    graph = create_graph(reactions=reactions, reactants=args.reactants, node_distance=args.node_distance)
 
     name = '_'.join(args.reactants) if args.reactants else 'all_reactions'
     os.makedirs(args.result_folder, exist_ok=True)
